@@ -1,5 +1,5 @@
 {
-  "name": "see-king/php-sitemap-generator",
+  "name": "see-king/php-sitemap-builder",
   "version": "1.0.0",
   "description": "Simple PHP sitemap generator.",
   "keywords": ["php", "sitemap", "generator", "psr-1", "psr-2", "psr-4"],
