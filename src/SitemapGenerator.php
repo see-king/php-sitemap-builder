@@ -6,7 +6,7 @@
  * - Added toString() method that returns XML string
  */
 
-namespace SeeKing\SitemapGenerator;
+namespace Icamys\SitemapGenerator;
 
 use BadMethodCallException;
 use DateTime;
