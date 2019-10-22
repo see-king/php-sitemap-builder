@@ -1,6 +1,12 @@
 <?php
+/**
+ * The class is a fork of https://github.com/icamys/php-sitemap-generator
+ * What's done:
+ * - All private vars and methods are now protected, so that the inheriting classes have access to them.
+ * - Added toString() method that returns XML string
+ */
 
-namespace Icamys\SitemapGenerator;
+namespace SeeKing\SitemapGenerator;
 
 use BadMethodCallException;
 use DateTime;
@@ -77,32 +83,32 @@ class SitemapGenerator
      * URL to Your site.
      * Script will use it to send sitemaps to search engines.
      * @var string
-     * @access private
+     * @access protected
      */
-    private $baseURL;
+    protected $baseURL;
 
     /**
      * Base path. Relative to script location.
      * Use this if Your sitemap and robots files should be stored in other
      * directory then script.
      * @var string
-     * @access private
+     * @access protected
      */
-    private $basePath;
+    protected $basePath;
 
     /**
      * Version of this class
      * @var string
-     * @access private
+     * @access protected
      */
-    private $classVersion = "1.1.0";
+    protected $classVersion = "1.1.0";
 
     /**
      * Search engines URLs
      * @var array of strings
-     * @access private
+     * @access protected
      */
-    private $searchEngines = array(
+    protected $searchEngines = array(
         array(
             "http://search.yahooapis.com/SiteExplorerService/V1/updateNotification?appid=USERID&url=",
             "http://search.yahooapis.com/SiteExplorerService/V1/ping?sitemap="
@@ -115,35 +121,35 @@ class SitemapGenerator
     /**
      * Array with urls
      * @var SplFixedArray of strings
-     * @access private
+     * @access protected
      */
-    private $urls;
+    protected $urls;
 
     /**
      * Array with sitemap
      * @var array of strings
-     * @access private
+     * @access protected
      */
-    private $sitemaps;
+    protected $sitemaps;
 
     /**
      * Array with sitemap index
      * @var array of strings
-     * @access private
+     * @access protected
      */
-    private $sitemapIndex;
+    protected $sitemapIndex;
 
     /**
      * Current sitemap full URL
      * @var string
-     * @access private
+     * @access protected
      */
-    private $sitemapFullURL;
+    protected $sitemapFullURL;
 
     /**
      * @var DOMDocument
      */
-    private $document;
+    protected $document;
 
     /**
      * Constructor.
@@ -416,7 +422,7 @@ class SitemapGenerator
         }
     }
 
-    private function getSitemapFileName($name = null)
+    protected function getSitemapFileName($name = null)
     {
         if (!$name) {
             $name = $this->sitemapFileName;
@@ -434,9 +440,9 @@ class SitemapGenerator
      * @param string $fileName
      * @param bool $noGzip
      * @return bool
-     * @access private
+     * @access protected
      */
-    private function writeFile($content, $filePath, $fileName, $noGzip = false)
+    protected function writeFile($content, $filePath, $fileName, $noGzip = false)
     {
         if (!$noGzip && $this->createGZipFile) {
             return $this->writeGZipFile($content, $filePath, $fileName);
@@ -452,9 +458,9 @@ class SitemapGenerator
      * @param string $filePath
      * @param string $fileName
      * @return bool
-     * @access private
+     * @access protected
      */
-    private function writeGZipFile($content, $filePath, $fileName)
+    protected function writeGZipFile($content, $filePath, $fileName)
     {
         $fileName .= '.gz';
         $file = gzopen($filePath . $fileName, 'w');
@@ -584,5 +590,27 @@ class SitemapGenerator
     public function countUrls()
     {
         return $this->urls->getSize();
+    }
+
+    /**
+     * Returns the XML string
+     * @return string XML string from created sitemap
+     */
+    public function toString(){
+        $html = "";
+
+        if (!isset($this->sitemaps)) {
+            throw new BadMethodCallException("Submit URL list to get sitemap XML");
+        }
+        if (isset($this->sitemapIndex)) {
+            $this->document->loadXML($this->sitemapIndex[1]);
+            $html .= $this->document->saveXML();
+            
+        } else {
+            $this->document->loadXML($this->sitemaps[0][1]);
+            $html .= $this->document->saveXML();            
+        }
+
+        return $html;
     }
 }

@@ -9,6 +9,10 @@ Features:
 * Follows [sitemaps.org](https://sitemaps.org/) protocol
 * Supports alternative links for multi-language pages (see [google docs](https://webmasters.googleblog.com/2012/05/multilingual-and-multinational-site.html))
 
+Features added in fork:
+* toString method that returns sitemap's XML text
+* all private vars and methods are converted to protected to simplify inheritance
+
 Usage example:
 
 ```php
@@ -16,7 +20,7 @@ Usage example:
 
 include "src/SitemapGenerator.php";
 
-$generator = new \Icamys\SitemapGenerator\SitemapGenerator('example.com');
+$generator = new \SeeKing\SitemapGenerator\SitemapGenerator('example.com');
 
 // will create also compressed (gzipped) sitemap
 $generator->createGZipFile = true;
@@ -42,6 +46,9 @@ $generator->addUrl('http://example.com/url/path/', new DateTime(), 'always', '0.
 
 // generating internally a sitemap
 $generator->createSitemap();
+
+// outputting the XML to screen
+echo $generator->toString();
 
 // writing early generated sitemap to file
 $generator->writeSitemap();
