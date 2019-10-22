@@ -8,10 +8,8 @@ Internally uses SplFixedArrays, thus is faster and uses less memory.
 Features:
 * Follows [sitemaps.org](https://sitemaps.org/) protocol
 * Supports alternative links for multi-language pages (see [google docs](https://webmasters.googleblog.com/2012/05/multilingual-and-multinational-site.html))
-
-Features added in fork:
-* toString method that returns sitemap's XML text
-* all private vars and methods are converted to protected to simplify inheritance
+* toString method returns sitemap's XML text
+* all vars and methods have public or protected (not private) member access to simplify inheritance
 
 Usage example:
 
