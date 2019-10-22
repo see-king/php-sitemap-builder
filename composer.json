@@ -1,6 +1,6 @@
 {
-  "name": "icamys/php-sitemap-generator",
-  "version": "1.2.1",
+  "name": "see-king/php-sitemap-generator",
+  "version": "1.0.0",
   "description": "Simple PHP sitemap generator.",
   "keywords": ["php", "sitemap", "generator", "psr-1", "psr-2", "psr-4"],
   "homepage": "https://github.com/icamys/php-sitemap-generator",
@@ -12,6 +12,11 @@
       "name": "Prisacari Dmitrii",
       "email": "prisacari.dmitrii@gmail.com",
       "homepage": "http://github.com/icamys/"
+    },
+    {
+      "name": "Alex Kogan",
+      "email": "seekvisum@gmail.com",
+      "homepage": "http://github.com/see-king/"
     }
   ],
   "require": {
